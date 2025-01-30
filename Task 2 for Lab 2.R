@@ -1,4 +1,4 @@
-install.packages("jsonlite")
+#install.packages("jsonlite")
 library(jsonlite)
 library(stringr)
 
@@ -19,7 +19,7 @@ print(song.name)
 
 json.data<-fromJSON(json.file)
 
-average.loundess <- json.data$metadata$audio_properties$replay_gain
+average.loundess <- json.data$lowlevel$average_loudness 
 mean.spectral.engery <- json.data$lowlevel$spectral_rolloff$mean
 danceability <- json.data$rhythm$danceability
 bpm <- json.data$rhythm$bpm
@@ -42,5 +42,6 @@ music_features <- data.frame(
 
 dim(music_features)
 View(music_features)
+
 
 
