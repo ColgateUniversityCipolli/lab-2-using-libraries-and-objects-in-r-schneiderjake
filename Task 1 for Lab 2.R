@@ -27,7 +27,7 @@ for(curr.album in album.subdirectories){
   
   for(song in wav.files){
     
-    fixed.part <- "steaming_extractor_music.exe"
+    fixed.part <- "steaming\\_extractor\\_music.exe"
     track.file <- paste(curr.album , song , sep="/") #paste the current album sub directories and current tract title together
     
     

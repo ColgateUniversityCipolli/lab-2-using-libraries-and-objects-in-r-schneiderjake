@@ -1,0 +1,154 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+\usepackage{amsmath} %This allows me to use the align functionality.
+                     %If you find yourself trying to replicate
+                     %something you found online, ensure you're
+                     %loading the necessary packages!
+\usepackage{amsfonts}%Math font
+\usepackage{graphicx}%For including graphics
+\usepackage{hyperref}%For Hyperlinks
+\usepackage[shortlabels]{enumitem}% For enumerated lists with labels specified
+                                  % We had to run tlmgr_install("enumitem") in R
+\hypersetup{colorlinks = true,citecolor=black} %set citations to have black (not green) color
+\usepackage{natbib}        %For the bibliography
+\setlength{\bibsep}{0pt plus 0.3ex}
+\bibliographystyle{apalike}%For the bibliography
+\usepackage[margin=0.50in]{geometry}
+\usepackage{float}
+\usepackage{multicol}
+
+%fix for figures
+\usepackage{caption}
+\newenvironment{Figure}
+  {\par\medskip\noindent\minipage{\linewidth}}
+  {\endminipage\par\medskip}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\vspace{-1in}
+\title{Lab 2 -- MATH 240 -- Computational Statistics}
+
+\author{
+  Jake Schneider \\
+  Colgate University  \\
+  Department of Mathematics  \\
+  {\tt jdschneider@colgate.edu}
+}
+
+\date{2/4/2025}
+
+\maketitle
+
+\begin{multicols}{2}
+\begin{abstract}
+In this lab we explored file directories and subdirectories creating vectors and loops that allowed us to sort and process {\tt{.WAV}} files and .JSON files. These loops helped us to create a list of song names and to extract sound metrics effectively. In the first task we created a batch file that displayed our desired output file name for each song and the second task we extracted different sound metrics from one .JSON file. 
+\end{abstract}
+
+\noindent \textbf{Keywords:} Vectors; Objects; Loops; Libraries
+
+\section{Introduction}
+The purpose of this lab is to process a directory of audio files into an executable file and to extract different musical metrics from a song. Processing each file individual is extremely tedious and time consuming. To solve this problem we need to come up with a solution that automates this process making it as efficient as possible, especially with very large files. 
+
+In the first task we create a loop that enables us to pull the different elements from our music directory so that we can create our executable file to process each track. Creating this output. 
+\begin{center}
+\texttt{streaming\_extractor\_music.exe "EXAMPLE.wav" "EXAMPLE.json"}
+\end{center}
+
+In the second task we download the .JSON output for the song Au Revoir on the Talon Of The Hawk album by The Front Bottoms. We extract various musical metrics and create a data table to display the metrics that we have collected.  
+
+
+
+\section{Methods}
+The data we worked with was different for each part of the lab. The data that we are working with in the first task is a directory of {\tt{.WAV}} files that were created by our teacher and we need to create a loop in order to sort through the subdirectories in order to find out different {\tt{.WAV}} files. The data that we work with in the second task is a .JSON file for a song and we need to extrapolate different musical measurement from this file.
+
+\subsection{Batch File Processing}
+For the first task we needed to automate the extraction of the audio file attributes. To process the {\tt{.WAV}} files efficiently we created a list of subdirectories within our MUSIC/ file. Using the number of slashes(/) allowed us to filter subdirectories. By using loops we were able to extract the {\tt{.WAV}} files from each subdirectory efficiently and then use the stringr package \citep{stringr} to help format them into the batch file using the \verb|str_split()| and \verb|str_sub()| functions. We can then use our paste command to produce our desired outputs to the batch file. 
+
+
+\subsection{.JSON Processing}
+In the second task process the data in the .JSON file required us to to install the jsonlite package \citep{jsonlite} and use the stringr package to extract the artist, album and track from the file name. To extract our musical data we need to use {\tt{fromJSON()}} function giving us a large list and from there we can then extract average loundess, spectral energy, danceability, bpm, msusical key, msucial mode and length. We then used this data to create a data frame. 
+
+
+
+\section{Results}
+The automated process that we created for the first task successfully allowed us to gather and display the information that we were seeking in a batch file which we can now use later. From our second task we were able to successfully pull out each of the desired musical elements that we were seeking and put them into a data frame for analysis in the future.  
+
+
+
+\section{Discussion}
+This lab showcased how beneficial it is to use loops in order to help process very large data files quickly. The batch file creation enable us to breakdown a large file of data quickly and effectively so that we have the ability to analyze it further in the future. The second part of the lab was similar to the first execpt instead of creating a loop we manually extracted the data which is still beneficial as we can go back thorugh this code and put loops in it to automate it. 
+
+Overall, this lab displayed the importantance of using loops and creating vectors to help automate data extraction and sortment from large files.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{2em}
+
+
+\begin{tiny}
+\bibliography{bib}
+\end{tiny}
+
+\end{multicols}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\onecolumn
+
+
+
+
+
+
+\end{document}
